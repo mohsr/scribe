@@ -4,30 +4,10 @@ import datetime
 import os
 import sys
 
-# Get the string day of the week
-def get_day(time):
-    day = time.weekday()
-    if day == 0:
-        return "Monday"
-    elif day == 1:
-        return "Tuesday"
-    elif day == 2:
-        return "Wednesday"
-    elif day == 3:
-        return "Thursday"
-    elif day == 4:
-        return "Friday"
-    elif day == 5:
-        return "Saturday"
-    elif day == 6:
-        return "Sunday"
-
 # Write a message to a given filepath and a backup path
 def scribe(text, path, backup_path):
-    # Gather time data
-    now = datetime.datetime.now()
-    weekday = get_day(now)
-    time = now.strftime(f"%I:%M%p on {weekday}, %B %d, %Y")
+    # Gather formatted time string
+    time = datetime.datetime.now().strftime("%I:%M%p on %A, %B %d, %Y")
 
     text = "=====\n" + time + ":\n" + text + "\n"
 
