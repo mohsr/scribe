@@ -3,21 +3,28 @@
 import os
 import sys
 
-# Write a message to a given filepath
-def scribe(text, path):
+# Write a message to a given filepath and a backup path
+def scribe(text, path, backup_path):
+    text = "\n" + text + "\n"
+
+    # Write the data
     with open(path, "a+") as file:
-        file.write("\n" + text + "\n")
+        file.write(text)
+    if backup_path:
+        with open(backup_path, "a+") as file:
+            file.write(text)
 
 if __name__ == "__main__":
     # If SCRIBE_PATH is not set, default to ~/scribe.txt
     path = os.environ.get('SCRIBE_PATH')
     if path is None:
         path = os.path.expanduser("~") + "/scribe.txt"
+    backup_path = os.environ.get('SCRIBE_BACKUP')
 
     # Launch in interactive mode
     if len(sys.argv) == 1:
-        scribe(sys.stdin.read(), path)
+        scribe(sys.stdin.read(), path, backup_path)
     # Launch in argument mode
     else:
-        scribe(sys.argv[1], path)
+        scribe(sys.argv[1], path, backup_path)
 
