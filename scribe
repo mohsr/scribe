@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+# Write a message to a given filepath
+def scribe(text, path):
+    with open(path, "a+") as file:
+        file.write("\n" + text + "\n")
+
+if __name__ == "__main__":
+    # If SCRIBE_PATH is not set, default to ~/scribe.txt
+    path = os.environ.get('SCRIBE_PATH')
+    if path is None:
+        path = os.path.expanduser("~") + "/scribe.txt"
+
+    # Launch in interactive mode
+    if len(sys.argv) == 1:
+        scribe(sys.stdin.read(), path)
+    # Launch in argument mode
+    else:
+        scribe(sys.argv[1], path)
+
