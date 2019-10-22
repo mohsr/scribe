@@ -9,7 +9,7 @@ def scribe(text, path, backup_path):
     # Gather formatted time string
     time = datetime.datetime.now().strftime("%I:%M%p on %A, %B %d, %Y")
 
-    text = "-----\n" + time + ":\n" + text + "\n"
+    text = "-----\n" + time + ":\n" + text.strip() + "\n"
 
     # Write the data and backup if requested
     with open(path, "a+") as file:
@@ -29,6 +29,8 @@ if __name__ == "__main__":
 
     # Launch in interactive mode or argument mode
     if len(sys.argv) == 1:
+        sys.stdout.write("> ")
+        sys.stdout.flush()
         scribe(sys.stdin.read(), path, backup_path)
     else:
         scribe(sys.argv[1], path, backup_path)
